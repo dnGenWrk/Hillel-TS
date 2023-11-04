@@ -3,36 +3,31 @@ enum ResultStatus {
   success = 200,
 }
 
-type Data = {
+interface Data {
   sum: number;
   from: number;
   to: number;
-  databaseId?: number;
-};
+}
 
-type DataFailedRequest = {
+interface DataResponse extends Data {
+  databaseId: number;
+}
+
+interface DataResponseError {
   errorMessage: string;
   errorCode: number;
-};
-
-interface IData {
-  data: Data | DataFailedRequest;
-  status?: ResultStatus;
 }
 
-class ApiRequest implements IData {
+interface ApiRequest {
   data: Data;
-  constructor(data: Data) {
-    this.data = data;
-  }
 }
 
-class ApiResponse implements IData {
-  status: ResultStatus;
-  data: Data | DataFailedRequest;
+interface ApiResponse {
+  status: ResultStatus.success;
+  data: DataResponse;
+}
 
-  constructor(status: ResultStatus, data: Data | DataFailedRequest) {
-    this.data = data;
-    this.status = status;
-  }
+interface ResponseFail {
+  status: ResultStatus.failed;
+  data: DataResponseError;
 }
