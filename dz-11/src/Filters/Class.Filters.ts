@@ -19,7 +19,8 @@ class Filters implements IFilter {
     } else {
       const arrDone = this.list.filter((el) => el.isDone);
       const arrUndone = this.list.filter((el) => !el.isDone);
-      result = result.concat(arrDone, arrUndone);
+      // result = result.concat(arrDone, arrUndone);
+      result = [...arrDone, ...arrUndone];
     }
     return result;
   };
